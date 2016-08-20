@@ -1,0 +1,176 @@
+﻿<Window x:Class="WpfApplication4.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:WpfApplication4"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Title="MainWindow"
+        Width="525" Height="750" mc:Ignorable="d">
+    <Window.Resources>
+
+        <Style x:Key="NavigationStyle" TargetType="{x:Type ListBox}">
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+            <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
+            <Setter Property="ScrollViewer.PanningMode" Value="Both" />
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="ItemContainerStyle" Value="{DynamicResource ListBoxItemStyle1}" />
+            <Setter Property="ItemsPanel" Value="{DynamicResource ItemsPanelTemplate1}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBox">
+                        <Border Name="Bd" Background="Transparent"
+                                BorderBrush="{TemplateBinding Control.BorderBrush}"
+                                BorderThickness="{TemplateBinding Control.BorderThickness}"
+                                SnapsToDevicePixels="True">
+                            <ScrollViewer Focusable="False" HorizontalScrollBarVisibility="Disabled"
+                                          Padding="{TemplateBinding Control.Padding}"
+                                          VerticalScrollBarVisibility="Disabled">
+                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}"
+                                                Margin="15,0"/>
+                            </ScrollViewer>
+                        </Border>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ListBoxItemStyle1" TargetType="{x:Type ListBoxItem}">
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="Padding" Value="4,1" />
+            <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+            <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <ControlTemplate.Resources>
+                            <Storyboard x:Key="Storyboard1">
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="innerBorder">
+                                    <EasingDoubleKeyFrame KeyTime="0" Value="7"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="10"/>
+                                </DoubleAnimationUsingKeyFrames>
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="innerBorder">
+                                    <EasingDoubleKeyFrame KeyTime="0" Value="7"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="10"/>
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                            <Storyboard x:Key="Storyboard2">
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="innerBorder">
+                                    <EasingDoubleKeyFrame KeyTime="0" Value="10"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="7"/>
+                                </DoubleAnimationUsingKeyFrames>
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="innerBorder">
+                                    <EasingDoubleKeyFrame KeyTime="0" Value="10"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="7"/>
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </ControlTemplate.Resources>
+                        <Grid Width="100">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="12" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="12" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Column="0" Margin="-30,0,-30,3" HorizontalAlignment="Center" FontSize="12"
+                                       Text="{Binding DisplayTitle}" />
+                            <Grid x:Name="grid_border" Grid.Row="1" Grid.Column="0" Background="Transparent">
+                                <Border x:Name="innerBorder" Width="7" Height="7" HorizontalAlignment="Center"
+                                        VerticalAlignment="Center" Background="#C9C9C9" CornerRadius="100" SnapsToDevicePixels="True"
+                                        UseLayoutRounding="True" />
+                            </Grid>
+
+                            <Border Grid.Row="1" Grid.Column="1" Margin="5,0" VerticalAlignment="Center"
+                                    BorderBrush="#C9C9C9" BorderThickness="0,1,0,0" SnapsToDevicePixels="True" UseLayoutRounding="True" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.ExitActions>
+                                    <StopStoryboard BeginStoryboardName="Storyboard1_BeginStoryboard"/>
+                                </MultiTrigger.ExitActions>
+                                <MultiTrigger.EnterActions>
+                                    <BeginStoryboard x:Name="Storyboard1_BeginStoryboard" Storyboard="{StaticResource Storyboard1}"/>
+                                </MultiTrigger.EnterActions>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="grid_border" Property="Cursor" Value="Hand" />
+                                <Setter TargetName="innerBorder" Property="Width" Value="10" />
+                                <Setter TargetName="innerBorder" Property="Height" Value="10" />
+                            </MultiTrigger>
+                            <Trigger Property="IsMouseOver" Value="False">
+                                <Trigger.ExitActions>
+                                    <StopStoryboard BeginStoryboardName="Storyboard2_BeginStoryboard"/>
+                                </Trigger.ExitActions>
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard x:Name="Storyboard2_BeginStoryboard" Storyboard="{StaticResource Storyboard2}"/>
+                                </Trigger.EnterActions>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Selector.IsSelectionActive" Value="False" />
+                                    <Condition Property="IsSelected" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="innerBorder" Property="Background" Value="#CA5100" />
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Selector.IsSelectionActive" Value="True" />
+                                    <Condition Property="IsSelected" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="innerBorder" Property="Background" Value="#CA5100" />
+                            </MultiTrigger>
+                            <Trigger Property="IsEnabled" Value="False" />
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <ItemsPanelTemplate x:Key="ItemsPanelTemplate1">
+            <WrapPanel IsItemsHost="True" />
+        </ItemsPanelTemplate>
+        <Storyboard x:Key="Storyboard1"/>
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource Storyboard1}"/>
+        </EventTrigger>
+    </Window.Triggers>
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Top">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ListBox x:Name="AnchorListBox" Style="{DynamicResource NavigationStyle}"
+                 ItemsSource="{Binding AnchorList}"
+                 SelectedIndex="0"
+                 SelectedItem="{Binding SelectedItem}"
+                 SelectionChanged="ListBox_SelectionChanged">
+            
+        </ListBox>
+        <ScrollViewer x:Name="scrollViewer" Grid.Row="1" VerticalScrollBarVisibility="Auto"
+                      ScrollChanged="ScrollViewer_ScrollChanged">
+            <ScrollViewer.Content>
+                <StackPanel x:Name="AnchorPointPanel">
+                    <ListBox x:Name="PointInputResource" ItemsSource="{Binding data1}" />
+                    <ListBox x:Name="PointIncept" ItemsSource="{Binding data1}" />
+                    <ListBox x:Name="PointCommand" ItemsSource="{Binding data1}" />
+                    <ListBox x:Name="PointProcess" ItemsSource="{Binding data1}" />
+                </StackPanel>
+            </ScrollViewer.Content>
+        </ScrollViewer>
+    </Grid>
+</Window>
